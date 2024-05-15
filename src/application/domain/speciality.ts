@@ -1,6 +1,6 @@
 export type SpecialityProps = {
     name: string;
-    description: string;
+    description?: string;
 }
 export class Speciality {
     public readonly name: string;
@@ -8,6 +8,6 @@ export class Speciality {
 
     constructor({name, description}: SpecialityProps) {
         this.name = name;
-        this.description = description;
+        this.description = description ?? '';
     }
 }
