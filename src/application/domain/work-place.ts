@@ -12,7 +12,7 @@ export class WorkPlace {
 
     constructor({name, address, startTime, endTime}: WorkPlaceProps) {
         this.name = name;
-        this.address = address;
+        this.address = address || '';
         this.startTime = startTime;
         this.endTime = endTime;
     }
