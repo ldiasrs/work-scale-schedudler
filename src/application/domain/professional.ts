@@ -1,4 +1,3 @@
-import { Skill } from "./skill";
 import { Speciality } from "./speciality";
 
 export type ProfessionalProps = {
@@ -6,25 +5,25 @@ export type ProfessionalProps = {
     cellphone?: string;
     address?: string;
     especilities: Speciality[];
-    skills: Skill[];
+    tags: string[];
 }
 export class Professional {
     public readonly name: string;
-    public readonly cellphone: string;
-    public readonly address: string;
+    public readonly cellphone?: string;
+    public readonly address?: string;
     public readonly especilities: Speciality[];
-    public readonly skills: Skill[];
+    public readonly tags: string[];
 
-    constructor({name, cellphone, especilities, skills, address}:ProfessionalProps) {
+    constructor({name, cellphone, especilities, tags, address}:ProfessionalProps) {
         this.name = name;
-        this.cellphone = cellphone || '';
+        this.cellphone = cellphone
         this.especilities = especilities;
-        this.skills = skills;
-        this.address = address || '';
+        this.address = address 
+        this.tags = tags;
     }
 
-    hasSkill(skill: Skill): boolean {
-        return this.skills.includes(skill);
+    hasTag(tag: string): boolean {
+        return this.tags.includes(tag);
     }
 
     hasSpeciality(speciality: Speciality): boolean {

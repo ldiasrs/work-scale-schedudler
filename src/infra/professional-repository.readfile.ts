@@ -1,8 +1,8 @@
 import Papa from "papaparse";
 import { Professional } from "../application/domain/professional";
-import { Skill } from "../application/domain/skill";
 import { Speciality } from "../application/domain/speciality";
-export class ProfessionalRepositoryReadFile  {
+import { ProfessionalRepository } from "./professional-repository";
+export class ProfessionalRepositoryReadFile  implements  ProfessionalRepository {
     
     private csvProfessionalsData: string;
 
@@ -16,13 +16,12 @@ export class ProfessionalRepositoryReadFile  {
           .slice(1)
           .filter((row: any) => row[0]?.trim() !== '')
           .map((row: any) => {
-            const skills = row[2] ? row[2].split(",") : []
-            const skillObjs = skills.map((skill: string) => new Skill({name: skill?.trim()}))
+            const tags = row[2] ? row[2].split(",") : []
             const specialityName = row[1]?.trim()
             return new Professional(
                 {
                     name: row[0]?.trim(),
-                    skills: skillObjs,
+                    tags: tags.map((tag: string) => tag.trim()),
                     especilities: [new Speciality({name: specialityName})]
                 }
             )

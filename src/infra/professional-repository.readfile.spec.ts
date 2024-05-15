@@ -1,6 +1,5 @@
 import { Professional } from "../application/domain/professional";
 import { ProfessionalRepositoryReadFile } from "./professional-repository.readfile";
-import { Skill } from "../application/domain/skill";
 import { Speciality } from "../application/domain/speciality";
 
 describe('ProfessionalRepositoryReadFile', () => {
@@ -19,14 +18,14 @@ describe('ProfessionalRepositoryReadFile', () => {
         new Professional(
           {
             name: "Adalberto",
-            skills: [new Skill({name: "MOTORISTA"}), new Skill({name: "APOIO"})],
+            tags: [ "MOTORISTA", "APOIO" ],
             especilities: [new Speciality({name: "Medico"})]
           }
         ),
         new Professional(
           {
             name: "Alexia",
-            skills: [],
+            tags: [],
             especilities: [new Speciality({name: "Enfermeiro"})]
           }
         )
