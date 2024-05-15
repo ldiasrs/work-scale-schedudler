@@ -4,27 +4,28 @@
   "description": "cria escala de trabalho baseado em especialidade e atributos",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
-    "test:watch": "jest --watch",
     "build": "tsc",
-    "lint": "eslint ./src/**/.ts"
+    "lint": "eslint ./src/**/.ts",
+    "test": "jest"
   },
   "author": "Leonardo Cardoso Dias",
   "license": "ISC",
   "devDependencies": {
+    "@babel/preset-typescript": "^7.24.1",
+    "@jest/globals": "^29.7.0",
     "@types/jest": "^29.5.12",
     "@typescript-eslint/eslint-plugin": "^7.9.0",
     "@typescript-eslint/parser": "^7.9.0",
     "eslint": "^8.57.0",
+    "fs": "^0.0.1-security",
     "jest": "^29.7.0",
     "nodemon": "^3.1.0",
-    "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2",
-    "typescript": "^5.4.5",
-    "env": "^0.0.2",
-    "fs": "^0.0.1-security"
+    "typescript": "^5.4.5"
   },
   "dependencies": {
-    "env": "^0.0.2"
+    "@babel/preset-env": "^7.24.5",
+    "@types/papaparse": "^5.3.14",
+    "papaparse": "^5.4.1"
   }
 }

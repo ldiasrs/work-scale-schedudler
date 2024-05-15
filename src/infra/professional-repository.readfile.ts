@@ -1,35 +1,28 @@
-import { readFileSync } from 'fs';
-import { ProfessionalRepository } from './professional-repository';
-import { Professional } from '@application/domain/professional';
-
-export class ProfessionalRepositoryReadFile implements ProfessionalRepository {
+import Papa from "papaparse";
+import { Professional } from "../application/domain/professional";
+import { Skill } from "../application/domain/skill";
+export class ProfessionalRepositoryReadFile  {
     
-    private path: string;
-    constructor() {
-        const path = process.env.PROFESSIONALS_FILE_PATH;
-        if (!path) {
-            throw new Error('env PROFESSIONALS_FILE_PATH not found');
-        }
-        this.path = path;
+    private csvProfessionalsData: string;
+
+    constructor(csvProfessionalsData: string) {
+        this.csvProfessionalsData = csvProfessionalsData;
     }
 
-    private mapToProfessionals(csvProfessionals: string): Professional[] {
-        const lines = csvProfessionals.split('  ');
-        return lines.map(line => {
-            console.log(line);
+    public findAll(): Professional[] {
+        const results = Papa.parse(this.csvProfessionalsData, { delimiter: "	" });
+        return results.data
+          .slice(1)
+          .map((row: any) => {
+            const skills = row[2] ? row[2].split(",") : []
+            const skillObjs = skills.map((skill: string) => new Skill({name: skill?.trim()}))
             return new Professional(
                 {
-                    name: 'name',
-                    skills: [],
-                    especilities: []
-                    
+                    name: row[0]?.trim(),
+                    skills: skillObjs,
+                    especilities: [row[1]?.trim()]
                 }
-            );
-        });
-    }
-
-    findAll() {
-        const csvProfessionals = readFileSync(this.path, "utf8");
-        return this.mapToProfessionals(csvProfessionals)
+            )
+          })
     }
 }
