@@ -1,5 +1,5 @@
-import { ProfessionalRepository } from "../../infra/professional-repository";
-import { WorkPlaceDemandRepository } from "../../infra/work-place-demand-repository";
+import { ProfessionalRepository } from "../../infra/repository/professional-repository";
+import { WorkPlaceDemandRepository } from "../../infra/repository/work-place-demand-repository";
 
 export class BuildWorkPlaceScale {
     private readonly workPlaceDemandRepository: WorkPlaceDemandRepository

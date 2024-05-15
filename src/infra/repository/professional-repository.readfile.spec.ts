@@ -1,6 +1,6 @@
-import { Professional } from "../application/domain/professional";
+import { Professional } from "../../application/domain/professional";
 import { ProfessionalRepositoryReadFile } from "./professional-repository.readfile";
-import { Speciality } from "../application/domain/speciality";
+import { Speciality } from "../../application/domain/speciality";
 
 describe('ProfessionalRepositoryReadFile', () => {
 

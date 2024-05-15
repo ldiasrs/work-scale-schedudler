@@ -1,4 +1,4 @@
-import { Speciality } from '../application/domain/speciality';
+import { Speciality } from '../../application/domain/speciality';
 export class SpecialityRepositoryHardCoded {
    
     private cache: Map<string, Speciality> = new Map();
