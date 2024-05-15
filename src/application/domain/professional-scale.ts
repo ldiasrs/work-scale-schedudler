@@ -1,14 +1,14 @@
-import { Profissional } from "./professional";
+import { Professional } from "./professional";
 import { Skill } from "./skill";
 import { Speciality } from "./speciality";
 export type ProfessionalScaleProps = {
-    professional: Profissional;
+    professional: Professional;
     roles: Role[];  
 }
 export type Role = Speciality | Skill;
 
 export class ProfessionalScale {
-    private readonly professional: Profissional;
+    private readonly professional: Professional;
     private readonly roles: Role[];  
 
     constructor({professional, roles}: ProfessionalScaleProps) {

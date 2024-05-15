@@ -8,7 +8,7 @@ export type ProfessionalProps = {
     especilities: Speciality[];
     skills: Skill[];
 }
-export class Profissional {
+export class Professional {
     public readonly name: string;
     public readonly cellphone: string;
     public readonly address: string;
@@ -31,7 +31,7 @@ export class Profissional {
         return this.especilities.includes(speciality);
     }
 
-    equals(professional: Profissional): boolean {
+    equals(professional: Professional): boolean {
         return this.name === professional.name && this.cellphone === professional.cellphone;
     }
 }

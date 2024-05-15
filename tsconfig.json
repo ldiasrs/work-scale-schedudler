@@ -1,11 +1,17 @@
 {
-  "include": [
-    "./src/"
-  ],
   "watchOptions": {
     "watchFile": "fixedPollingInterval"
   },
+  "include": [
+    "src"
+  ],
   "compilerOptions": {
+    "paths": {
+      "@application/*": ["src/application/*"],
+      "@infra/*": ["src/infra/*"],
+      "@api/*": ["src/api/*"],
+      "*": ["node_modules/*"]
+    },
     
     /* Visit https://aka.ms/tsconfig to read more about this file */
 
