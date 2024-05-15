@@ -3,17 +3,17 @@ import { SpecialityDemand } from "./speciality-demand";
 import { WorkPlace } from "./work-place";
 
 export type WorkPlaceSpecialityDemandProps = {
-    workPlce: WorkPlace;
+    workPlace: WorkPlace;
     specialityDemands: SpecialityDemand[];
     skillDemands: SkillDemand[];
 }
 export class WorkPlaceSpecialityDemand {
-    public readonly workPlce: WorkPlace
+    public readonly workPlace: WorkPlace
     public readonly specialityDemands: SpecialityDemand[]
     public readonly skillDemands: SkillDemand[]
     
-    constructor({workPlce, specialityDemands, skillDemands}: WorkPlaceSpecialityDemandProps) {
-        this.workPlce = workPlce;
+    constructor({workPlace, specialityDemands, skillDemands}: WorkPlaceSpecialityDemandProps) {
+        this.workPlace = workPlace;
         this.specialityDemands = specialityDemands;
         this.skillDemands = skillDemands;
     }
