@@ -3,8 +3,8 @@ import { Speciality } from "./speciality";
 
 export type ProfessionalProps = {
     name: string;
-    cellphone: string;
-    address: string;
+    cellphone?: string;
+    address?: string;
     especilities: Speciality[];
     skills: Skill[];
 }
@@ -17,10 +17,10 @@ export class Professional {
 
     constructor({name, cellphone, especilities, skills, address}:ProfessionalProps) {
         this.name = name;
-        this.cellphone = cellphone;
+        this.cellphone = cellphone || '';
         this.especilities = especilities;
         this.skills = skills;
-        this.address = address;
+        this.address = address || '';
     }
 
     hasSkill(skill: Skill): boolean {
