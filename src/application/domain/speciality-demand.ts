@@ -1,13 +1,13 @@
 import { Speciality } from "./speciality";
 
-export type WorkPlaceSpecialityDemandProps = {
+export type SpecialityDemandProps = {
     speciality: Speciality;
     quantity: number;
 }
-export class WorkPlaceSpecialityDemand {
+export class SpecialityDemand {
     public readonly speciality: Speciality;
     public readonly quantity: number;
-    constructor({speciality, quantity}: WorkPlaceSpecialityDemandProps) {
+    constructor({speciality, quantity}: SpecialityDemandProps) {
         this.speciality = speciality;
         this.quantity = quantity;
     }
