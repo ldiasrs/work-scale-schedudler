@@ -1,7 +1,7 @@
 import Papa from "papaparse";
 import { Professional } from "../application/domain/professional";
 import { Skill } from "../application/domain/skill";
-import { Speciality } from "src/application/domain/speciality";
+import { Speciality } from "../application/domain/speciality";
 export class ProfessionalRepositoryReadFile  {
     
     private csvProfessionalsData: string;
@@ -14,6 +14,7 @@ export class ProfessionalRepositoryReadFile  {
         const results = Papa.parse(this.csvProfessionalsData, { delimiter: "	" });
         return results.data
           .slice(1)
+          .filter((row: any) => row[0]?.trim() !== '')
           .map((row: any) => {
             const skills = row[2] ? row[2].split(",") : []
             const skillObjs = skills.map((skill: string) => new Skill({name: skill?.trim()}))
