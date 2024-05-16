@@ -42,7 +42,8 @@ export class BuildIndustryScaleExecutor {
     }
 
     allocateProfessionals(allocatedProfessionals: Professional[], professionalsSorted: Professional[], workPlaceDemand: WorkPlaceDemand): ProfessionalScale[] {
-        const allocatedWorkPlaceProfessionals: ProfessionalScale[] = workPlaceDemand.specialityDemands.map(specialityDemand => {
+        const allocatedWorkPlaceProfessionals: ProfessionalScale[] = workPlaceDemand.specialityDemands.map((specialityDemand: SpecialityDemand) => {
+            const professionalScales = []
             for(let i = 0; i < specialityDemand.quantity; i++) {
                 const professional = professionalsSorted.find(professional => {
                     const available = !allocatedProfessionals.includes(professional);
@@ -51,15 +52,14 @@ export class BuildIndustryScaleExecutor {
                 });
                 if (professional) {
                     allocatedProfessionals.push(professional);
-                    return new ProfessionalScale({
-                        professional,
-                        role: specialityDemand.speciality 
-                    });
-                } else {
-                    throw new Error('No professionals available to attend the demand of: ' + specialityDemand.speciality.name );
                 }
+                professionalScales.push(new ProfessionalScale({
+                    professional,
+                    role: specialityDemand.speciality 
+                }));
             }
-        })
+            return professionalScales;
+        }).flat();
         return allocatedWorkPlaceProfessionals;
     }
 

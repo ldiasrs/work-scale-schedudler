@@ -47,11 +47,11 @@ describe('BuildIndustryScaleExecutor', () => {
         expect(industryScale.workPlaceScales[0].professionalScales.length).toBe(3)
     })
 
-    const mapIndustryDemands = (industryDemandsData)=>  {
-        return industryDemandsData.map(industryDemandData => {
+    const mapIndustryDemands = (industryDemandsData: any)=>  {
+        return industryDemandsData.map((industryDemandData: any) => {
             return new WorkPlaceDemand({
                 workPlace: new WorkPlace({name: industryDemandData.place}),
-                specialityDemands: industryDemandData.specialities.map(specialityData => {
+                specialityDemands: industryDemandData.specialities.map((specialityData: any) => {
                     const specialityName = Object.keys(specialityData)[0];
                     const quantity = specialityData[specialityName];
                     return new SpecialityDemand({
@@ -59,16 +59,16 @@ describe('BuildIndustryScaleExecutor', () => {
                         quantity
                     })
                 }),
-                tagDemands: industryDemandData.tags.map(tag => new TagDemand({tag, quantity: 1}))
+                tagDemands: industryDemandData.tags.map((tag: string) => new TagDemand({tag, quantity: 1}))
             })
         });
     }
 
-    const mapProfessionals = (professionalsData) => {
-        return  professionalsData.map(professionalData => {
+    const mapProfessionals = (professionalsData: any) => {
+        return  professionalsData.map((professionalData: any) => {
             return new Professional({
                 name: professionalData.name,
-                especilities: professionalData.especialities.map(name => new Speciality({name})),
+                especilities: professionalData.especialities.map((name: string) => new Speciality({name})),
                 tags: professionalData.tags
             })
         })
