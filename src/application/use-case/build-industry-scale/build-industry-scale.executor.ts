@@ -79,6 +79,7 @@ export class BuildIndustryScaleExecutor {
         }).flat();
 
         const ranks = professionalsBySpeciality.map(professional => {
+            console.log(`${professional.name} tem especialidade`)
             return {
                 professional,
                 score: 101
@@ -88,10 +89,11 @@ export class BuildIndustryScaleExecutor {
             const rankWithTag = professionalsWithTag.map(professional => professional.name).includes(rank.professional.name);
             if(rankWithTag) {
                 rank.score += 50;
+                console.log(`${rank.professional.name} tem tag score: ${rank.score}`)
             }
         })
-
-        const professionalsSorted= ranks.sort((a,b) => a.score - b.score).map(rank => rank.professional);
+        const ranksSorted = ranks.sort((a,b) => b.score - a.score)
+        const professionalsSorted= ranksSorted.map(rank => rank.professional);
         return professionalsSorted;
     }
 }

@@ -15,6 +15,10 @@ export class ProfessionalRepositoryFile  implements  ProfessionalRepository {
         return results.data
           .slice(1)
           .filter((row: any) => row[0]?.trim() !== '')
+          .filter((row: any) => {
+            const tags = row[2] ? row[2].split(",") : []
+            return !tags?.includes('BLOQUEADO')
+          })
           .map((row: any) => {
             const tags = row[2] ? row[2].split(",") : []
             const specialityName = row[1]?.trim()
