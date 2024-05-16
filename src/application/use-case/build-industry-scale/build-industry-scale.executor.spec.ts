@@ -23,14 +23,14 @@ describe('BuildIndustryScaleExecutor', () => {
     }
     const makeParams=(options: Options) =>{
         const professionalsData = options.professionalsData ?? [
-            {name: 'Medico 1',especialities: ['Clinico Geral'], tags: ['cirurgiao']},
-            {name: 'Medico 2',especialities: ['Clinico Geral'], tags: ['pediatra']},
-            {name: 'Medico 3',especialities: ['Anestesista'], tags: ['pediatra']},
-            {name: 'Medico 4',especialities: ['Anestesista'], tags: []},
-            {name: 'Enfermeiro 1',especialities: ['Enfermeiro'], tags: ['bombeiro']},
+            {name: 'Medico 1',especialities: ['Clinico Geral'], tags: ['pediatra']},
+            {name: 'Medico 2',especialities: ['Anestesista'], tags: ['pediatra']},
+            {name: 'Medico 3',especialities: ['Anestesista'], tags: []},
+            {name: 'Medico 4',especialities: ['Clinico Geral'], tags: ['cirurgiao']},
+            {name: 'Enfermeiro 1',especialities: ['Enfermeiro'], tags: []},
             {name: 'Enfermeiro 2',especialities: ['Enfermeiro'], tags: []},
             {name: 'Enfermeiro 3',especialities: ['Enfermeiro'], tags: []},
-            {name: 'Enfermeiro 4',especialities: ['Enfermeiro'], tags: []},
+            {name: 'Enfermeiro 4',especialities: ['Enfermeiro'], tags: ['bombeiro']},
         ]
         const industryDemandsData = options.industryDemandsData ?? [
             {place: 'Hospital A', specialities: [{'Clinico Geral': 1}, {'Enfermeiro':1}], tags: ['bombeiro']},
@@ -44,7 +44,11 @@ describe('BuildIndustryScaleExecutor', () => {
     it('should allocate professionals of a industry work places demands', () => {
         const {workPlaceDemands, professionals} = makeParams({});
         const industryScale = new BuildIndustryScaleExecutor().execute({workPlaceDemands, professionals})
-        expect(industryScale.workPlaceScales[0].professionalScales.length).toBe(3)
+        expect(industryScale.workPlaceScales.length).toBe(2)
+        const scaleNames = industryScale.workPlaceScales.map((workPlaceScale) => workPlaceScale.professionalScales.map((professionalScale) => professionalScale.professional?.name)).flat().filter((name) => !!name)
+        expect(scaleNames).toEqual(
+            ["Enfermeiro 4", "Medico 4"]
+        )
     })
 
     const mapIndustryDemands = (industryDemandsData: any)=>  {
