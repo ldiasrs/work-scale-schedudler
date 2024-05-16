@@ -27,7 +27,7 @@ export class Professional {
     }
 
     hasSpeciality(speciality: Speciality): boolean {
-        return this.especilities.includes(speciality);
+        return this.especilities.map(spc => spc.name).includes(speciality.name);
     }
 
     equals(professional: Professional): boolean {

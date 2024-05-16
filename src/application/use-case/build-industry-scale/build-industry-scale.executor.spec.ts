@@ -17,30 +17,38 @@ import { BuildIndustryScaleExecutor } from "./build-industry-scale.executor"
 
 describe('BuildIndustryScaleExecutor', () => {
 
-    const makeParams=() =>{
-        const professionalsData = [
-            {name: 'Leonardo',especialities: ['Medico'], tags: ['cirurgiao']},
-            {name: 'Leonardo',especialities: ['Medico'], tags: ['cirurgiao']},
-            {name: 'Leonardo',especialities: ['Medico'], tags: ['cirurgiao']},
-            {name: 'Leonardo',especialities: ['Medico'], tags: ['cirurgiao']},
-            {name: 'Leonardo',especialities: ['Medico'], tags: ['cirurgiao']},
-            {name: 'Leonardo',especialities: ['Medico'], tags: ['cirurgiao']},
-            {name: 'Leonardo',especialities: ['Medico'], tags: ['cirurgiao']},
-            {name: 'Leonardo',especialities: ['Medico'], tags: ['cirurgiao']},
+    type Options ={
+        professionalsData? : any[],
+        industryDemandsData?: any[],
+    }
+    const makeParams=(options: Options) =>{
+        const professionalsData = options.professionalsData ?? [
+            {name: 'Medico 1',especialities: ['Clinico Geral'], tags: ['cirurgiao']},
+            {name: 'Medico 2',especialities: ['Clinico Geral'], tags: ['pediatra']},
+            {name: 'Medico 3',especialities: ['Anestesista'], tags: ['pediatra']},
+            {name: 'Medico 4',especialities: ['Anestesista'], tags: []},
+            {name: 'Enfermeiro 1',especialities: ['Enfermeiro'], tags: ['bombeiro']},
+            {name: 'Enfermeiro 2',especialities: ['Enfermeiro'], tags: []},
+            {name: 'Enfermeiro 3',especialities: ['Enfermeiro'], tags: []},
+            {name: 'Enfermeiro 4',especialities: ['Enfermeiro'], tags: []},
         ]
-        const industryDemandsData = [
-            {place: 'Hospital 1', specialities: [{'Medico': 1}, {'Enfermeiro':1}], tags: ['cirurgiao']},
-            {place: 'Hospital 1', specialities: [{'Medico': 1}, {'Enfermeiro':1}], tags: ['cirurgiao']},
+        const industryDemandsData = options.industryDemandsData ?? [
+            {place: 'Hospital A', specialities: [{'Clinico Geral': 1}, {'Enfermeiro':1}], tags: ['bombeiro']},
+            {place: 'Hospital B', specialities: [{'Clinico Geral': 1}, {'Enfermeiro':1}], tags: ['cirurgiao']},
         ]
+        return {
+            workPlaceDemands: mapIndustryDemands(industryDemandsData), 
+            professionals: mapProfessionals(professionalsData)
+        }
+    }
+    it('should allocate professionals of a industry work places demands', () => {
+        const {workPlaceDemands, professionals} = makeParams({});
+        const industryScale = new BuildIndustryScaleExecutor().execute({workPlaceDemands, professionals})
+        expect(industryScale.workPlaceScales[0].professionalScales.length).toBe(3)
+    })
 
-        const professionals = professionalsData.map(professionalData => {
-            return new Professional({
-                name: professionalData.name,
-                especilities: professionalData.especialities.map(name => new Speciality({name})),
-                tags: professionalData.tags
-            })
-        })
-        const workPlaceDemands = industryDemandsData.map(industryDemandData => {
+    const mapIndustryDemands = (industryDemandsData)=>  {
+        return industryDemandsData.map(industryDemandData => {
             return new WorkPlaceDemand({
                 workPlace: new WorkPlace({name: industryDemandData.place}),
                 specialityDemands: industryDemandData.specialities.map(specialityData => {
@@ -54,11 +62,15 @@ describe('BuildIndustryScaleExecutor', () => {
                 tagDemands: industryDemandData.tags.map(tag => new TagDemand({tag, quantity: 1}))
             })
         });
-        return {workPlaceDemands, professionals}
     }
-    it('should allocate professionals of a industry work places demands', () => {
-        const {workPlaceDemands, professionals} = makeParams();
-        const industryScale = new BuildIndustryScaleExecutor().execute({workPlaceDemands, professionals})
-        expect(industryScale.workPlaceScales[0].professionalScales.length).toBe(3)
-    })
+
+    const mapProfessionals = (professionalsData) => {
+        return  professionalsData.map(professionalData => {
+            return new Professional({
+                name: professionalData.name,
+                especilities: professionalData.especialities.map(name => new Speciality({name})),
+                tags: professionalData.tags
+            })
+        })
+    }
 })
