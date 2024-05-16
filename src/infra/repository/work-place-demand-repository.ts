@@ -1,5 +1,6 @@
-import { WorkPlaceSpecialityDemand } from "../../application/domain/work-place-demand";
+import { WorkPlaceDemand } from "../../application/domain/work-place-demand";
 
 export interface WorkPlaceDemandRepository {
-    findAll(): WorkPlaceSpecialityDemand[];
+    findAll(): WorkPlaceDemand[];
+    findByIndustryId({industryId}: {industryId: string}): WorkPlaceDemand[];
 }
