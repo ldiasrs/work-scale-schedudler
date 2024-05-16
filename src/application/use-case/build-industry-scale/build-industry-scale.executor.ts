@@ -24,6 +24,7 @@ export class BuildIndustryScaleExecutor {
        //TODO guardar a escala da industrial em um arquivo JSON
        //TODO futuro suportar horario? workplace tem tempo e profissinal pode ter tb para ser classificado
        //TODO revisar codigo e otimizar com ajuda do IA
+       //TODO adicionar logs de execucao
        const industryAllocatedProfessionals: Professional[] = [];
 
        const workPlaceScales: WorkPlaceScale[] = workPlaceDemands.map(workPlaceDemand => {    
