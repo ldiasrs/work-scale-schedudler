@@ -16,6 +16,7 @@ export class BuildIndustryScaleUseCase {
     execute({industryId}:  BuildIndustryScaleUseCaseParams): IndustryScale {
         const workPlaceSpecialityDemands = this.workPlaceDemandRepository.findByIndustryId({industryId});
         const professionals = this.professionalRepository.findAll();
+        
         return new IndustryScale({
             workPlaceScales: []
         })

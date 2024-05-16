@@ -3,7 +3,7 @@ import { Professional } from '../../domain/professional';
 import { ProfessionalScale } from '../../domain/professional-scale';
 import { WorkPlaceDemand } from '../../domain/work-place-demand';
 import { WorkPlaceScale } from '../../domain/work-place-scale';
-import { BuildIndustryScaleUseCase } from './build-work-place-scale';
+import { BuildIndustryScaleUseCase } from './build-work-place-scale.usecase';
 
 
 export type BuildIndustryScaleExecutorParams = {
@@ -81,12 +81,12 @@ export class BuildIndustryScaleExecutor {
                 score: 101
             }
         })
-        const finalRanks: Rank[] = professionalsWithTag.map(professional => {
+        const finalRanks: Rank[]  = professionalsWithTag.map((professional: Professional) => {
             const rank = ranksSpeciality.find(rank => rank.professional === professional);
             if(rank) {
                 rank.score += 50;
             }
-            return rank
+            return rank!
         })
 
         const professionalsSorted= finalRanks.sort((a,b) => a.score - b.score).map(rank => rank.professional);
