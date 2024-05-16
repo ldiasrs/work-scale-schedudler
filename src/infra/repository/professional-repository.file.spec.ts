@@ -1,12 +1,12 @@
 import { Professional } from "../../application/domain/professional";
-import { ProfessionalRepositoryReadFile } from "./professional-repository.readfile";
+import { ProfessionalRepositoryFile } from "./professional-repository.file";
 import { Speciality } from "../../application/domain/speciality";
 
 describe('ProfessionalRepositoryReadFile', () => {
 
   it('reads professionals from the file and maps them to Professional objects',  () => {
     
-    const repo  = new ProfessionalRepositoryReadFile(
+    const repo  = new ProfessionalRepositoryFile(
       `
       Adalberto	Medico	MOTORISTA, APOIO	NÃO
       Alexia	Enfermeiro		NÃO

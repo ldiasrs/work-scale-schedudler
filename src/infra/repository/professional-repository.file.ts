@@ -2,7 +2,7 @@ import Papa from "papaparse";
 import { Professional } from "../../application/domain/professional";
 import { Speciality } from "../../application/domain/speciality";
 import { ProfessionalRepository } from "./professional-repository";
-export class ProfessionalRepositoryReadFile  implements  ProfessionalRepository {
+export class ProfessionalRepositoryFile  implements  ProfessionalRepository {
     
     private csvProfessionalsData: string;
 

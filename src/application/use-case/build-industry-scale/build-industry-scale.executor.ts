@@ -1,9 +1,9 @@
 import { IndustryScale } from '../../domain/industry-scale';
 import { Professional } from '../../domain/professional';
 import { ProfessionalScale } from '../../domain/professional-scale';
+import { SpecialityDemand } from '../../domain/speciality-demand';
 import { WorkPlaceDemand } from '../../domain/work-place-demand';
 import { WorkPlaceScale } from '../../domain/work-place-scale';
-import { BuildIndustryScaleUseCase } from './build-work-place-scale.usecase';
 
 
 export type BuildIndustryScaleExecutorParams = {
@@ -28,6 +28,9 @@ export class BuildIndustryScaleExecutor {
        const workPlaceScales: WorkPlaceScale[] = workPlaceDemands.map(workPlaceDemand => {    
 
         const professionalsSorted= this.rankProfessionals(professionals, workPlaceDemand)
+        if (professionalsSorted.length < workPlaceDemand.specialityDemands.length) {
+            throw new Error('Not found professionals with speciality to allocate: '+ workPlaceDemand.specialityDemands.map(specialityDemand => specialityDemand.speciality.name).join(', ') + ' in ' + workPlaceDemand.workPlace.name + ' demand.')
+        }
         const allocatedWorkPlaceProfessionals = this.allocateProfessionals(industryAllocatedProfessionals, professionalsSorted, workPlaceDemand)
 
         return new WorkPlaceScale({
@@ -75,21 +78,20 @@ export class BuildIndustryScaleExecutor {
             return response;
         }).flat();
 
-        const ranksSpeciality = professionalsBySpeciality.map(professional => {
+        const ranks = professionalsBySpeciality.map(professional => {
             return {
                 professional,
                 score: 101
             }
         })
-        const finalRanks: Rank[]  = professionalsWithTag.map((professional: Professional) => {
-            const rank = ranksSpeciality.find(rank => rank.professional === professional);
-            if(rank) {
+        ranks.forEach((rank: Rank) => {
+            const rankWithTag = professionalsWithTag.map(professional => professional.name).includes(rank.professional.name);
+            if(rankWithTag) {
                 rank.score += 50;
             }
-            return rank!
         })
 
-        const professionalsSorted= finalRanks.sort((a,b) => a.score - b.score).map(rank => rank.professional);
+        const professionalsSorted= ranks.sort((a,b) => a.score - b.score).map(rank => rank.professional);
         return professionalsSorted;
     }
 }

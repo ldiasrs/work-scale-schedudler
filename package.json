@@ -6,7 +6,8 @@
   "scripts": {
     "build": "tsc",
     "lint": "eslint ./src/**/.ts",
-    "test": "jest"
+    "test": "jest",
+    "start": "ts-node src/application/use-case/build-industry-scale/cmd-line-manual-test.ts"
   },
   "author": "Leonardo Cardoso Dias",
   "license": "ISC",

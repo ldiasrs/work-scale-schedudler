@@ -1,4 +1,3 @@
-import { Speciality } from "./speciality";
 
 export type SpecialityDemandProps = {
     tag: string;

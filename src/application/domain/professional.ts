@@ -23,11 +23,11 @@ export class Professional {
     }
 
     hasTag(tag: string): boolean {
-        return this.tags.includes(tag);
+        return this.tags.map(t => t.toLocaleLowerCase()).includes(tag.toLocaleLowerCase());
     }
 
     hasSpeciality(speciality: Speciality): boolean {
-        return this.especilities.map(spc => spc.name).includes(speciality.name);
+        return this.especilities.map(spc => spc.name.toLocaleLowerCase()).includes(speciality.name.toLocaleLowerCase());
     }
 
     equals(professional: Professional): boolean {
