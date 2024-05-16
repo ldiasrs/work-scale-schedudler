@@ -4,10 +4,10 @@ export type SpecialityProps = {
 }
 export class Speciality {
     public readonly name: string;
-    public readonly description: string;
+    public readonly description?: string;
 
     constructor({name, description}: SpecialityProps) {
         this.name = name;
-        this.description = description ?? '';
+        this.description = description;
     }
 }

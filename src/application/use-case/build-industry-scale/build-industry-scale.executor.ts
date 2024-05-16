@@ -56,7 +56,7 @@ export class BuildIndustryScaleExecutor {
                         role: specialityDemand.speciality 
                     });
                 } else {
-                    throw new Error('No professionals available to attend the demand');
+                    throw new Error('No professionals available to attend the demand of: ' + specialityDemand.speciality.name );
                 }
             }
         })
